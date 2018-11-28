@@ -67,15 +67,16 @@ rl.on('close', () => {
   }
 
   for (let i = 0; i < num_unique_vertices; i++){
-    for (let j = 0; j < num_unique_vertices; j++){
-      let current_vertex = vertices[i];
 
-      // console.log('current: ', current_vertex, '\tadj_list[current]: ', adjacency_list[current_vertex]);
+    let current_vertex = vertices[i];
 
-      adjacency_list[current_vertex].forEach((vertex) => {
-        adjacency_matrix[i][vertices.indexOf(vertex)] = 1;
-      });
-    }
+    // console.log('current: ', current_vertex, '\tadj_list[current]: ', adjacency_list[current_vertex]);
+
+    adjacency_list[current_vertex].forEach((vertex) => {
+      adjacency_matrix[i][vertices.indexOf(vertex)] = 1;
+    });
+
+    process.stdout.write(i + '\r');
   }
 
   console.log(adjacency_matrix);
