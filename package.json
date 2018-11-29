@@ -1,0 +1,25 @@
+{
+  "name": "dotmatrix",
+  "version": "0.0.0",
+  "description": "Converts a DOT file to an adjacency matrix",
+  "main": "dotmatrix.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmusgrave/dotmatrix.git"
+  },
+  "keywords": [
+    "dot",
+    "gv",
+    "adjacency",
+    "matrix"
+  ],
+  "author": "Paul Musgrave",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pmusgrave/dotmatrix/issues"
+  },
+  "homepage": "https://github.com/pmusgrave/dotmatrix#readme"
+}
