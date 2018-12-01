@@ -3,24 +3,30 @@ const readline = require('readline');
 const dot_path = process.argv[2];
 
 let read_stream = fs.createReadStream(dot_path).setEncoding('ascii');
+let write_stream = fs.createWriteStream(dot_path.substring(0, dot_path.length - 4) + '_adjacency_matrix')
+  .on('error', function(err){
+    console.log(err.stack);
+  });
 
 let edges = new Array();
 let adjacency_list = {};
 
 const rl = readline.createInterface({
   input: read_stream,
-  //output: process.stdout
+  output: write_stream
 });
 
 rl.on('line', (line) => {
   if (line.includes('->')){
     edges.push(line.split(' -> '));
   }
+  if (line.includes('--')){
+    edges.push(line.split(' -- '));
+  }
 });
 
 rl.on('close', () => {
   edges.sort();
-  // console.log('edges:\n', edges)
   let vertices = new Array();
 
   for (let i = 0; i < edges.length; i++){
@@ -44,15 +50,8 @@ rl.on('close', () => {
     if(adjacency_list[vertex_right] == undefined){
       adjacency_list[vertex_right] = new Array();
     }
-    // else {
-    //   adjacency_list[vertex_right].push();
-    // }
   }
 
-  // console.log('adj_list: ', adjacency_list);
-  // console.log('vertices: ', vertices.sort());
-
-  // let vertices = Object.keys(adjacency_list);
   vertices = vertices.sort();
   let num_unique_vertices = vertices.length;
   let adjacency_matrix = new Array(num_unique_vertices);
@@ -67,7 +66,6 @@ rl.on('close', () => {
   }
 
   for (let i = 0; i < num_unique_vertices; i++){
-
     let current_vertex = vertices[i];
 
     // console.log('current: ', current_vertex, '\tadj_list[current]: ', adjacency_list[current_vertex]);
@@ -79,5 +77,12 @@ rl.on('close', () => {
     process.stdout.write(i + '\r');
   }
 
-  console.log(adjacency_matrix);
+  // console.log(adjacency_matrix);
+
+  adjacency_matrix.forEach(function(element) {
+    write_stream.write(element.join(' ') + '\n')
+  });
+
+  write_stream.end();
+  console.log('File ' + dot_path.substring(0, dot_path.length - 4) + '_adjacency_matrix written.');
 });
