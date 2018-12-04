@@ -3,10 +3,11 @@ const readline = require('readline');
 const dot_path = process.argv[2];
 
 let read_stream = fs.createReadStream(dot_path).setEncoding('ascii');
-let write_stream = fs.createWriteStream(dot_path.substring(0, dot_path.length - 4) + '_adjacency_matrix')
-  .on('error', function(err){
-    console.log(err.stack);
-  });
+let write_stream = fs.createWriteStream(dot_path.substring(0, dot_path.length - 4) + '_adjacency_matrix',
+  {defaultEncoding: 'ascii'})
+    .on('error', function(err){
+      console.log(err.stack);
+    });
 
 let edges = new Array();
 let adjacency_list = {};
@@ -68,16 +69,12 @@ rl.on('close', () => {
   for (let i = 0; i < num_unique_vertices; i++){
     let current_vertex = vertices[i];
 
-    // console.log('current: ', current_vertex, '\tadj_list[current]: ', adjacency_list[current_vertex]);
-
     adjacency_list[current_vertex].forEach((vertex) => {
       adjacency_matrix[i][vertices.indexOf(vertex)] = 1;
     });
 
     process.stdout.write(i + '\r');
   }
-
-  // console.log(adjacency_matrix);
 
   adjacency_matrix.forEach(function(element) {
     write_stream.write(element.join(' ') + '\n')
