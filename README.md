@@ -13,5 +13,5 @@ This will output "file_adjacency_matrix" in the same directory as the original D
 If your DOT file is large, it may be necessary to increase Node's memory limit:
 
 ```
-node --max-old-space-size=4096 dotmatrix.js path_to_dot_file.dot
+node --max-old-space-size=4096 dotmatrix.js file.dot
 ```
