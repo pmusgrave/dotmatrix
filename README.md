@@ -3,15 +3,15 @@
 This converts a DOT file to an adjacency matrix.
 
 #### Example usage:
+First, include the dotmatrix module.
+Then, call ```dotmatrix.convert_dot_file_to_matrix```. The first argument is the path to the target dot file, and the second argument is a callback function to process the results.
 
+e.g.
 ```
-node dotmatrix.js file.dot
-```
+const dotmatrix = require('./dotmatrix.js');
+const dot_path = process.argv[2];
 
-This will output "file_adjacency_matrix" in the same directory as the original DOT file.
-
-If your DOT file is large, it may be necessary to increase Node's memory limit:
-
-```
-node --max-old-space-size=4096 dotmatrix.js path_to_dot_file.dot
+dotmatrix.convert_dot_file_to_matrix(dot_path, (matrix) => {
+  console.log(matrix);
+});
 ```
